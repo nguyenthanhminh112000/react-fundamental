@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+// import { useState } from 'react';
+// function App() {
+//   const [time, setTime] = useState(0);
+//   const logData = function () {
+//     setTime(time + 1);
+//     console.log(time);
+//   };
+//   return (
+//     <div className='App'>
+//       <p>Hello everyone</p>
+//       <p>Times: {time}</p>
+//       <button onClick={logData}>Hello</button>
+//     </div>
+//   );
+// }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <img></img>
+      </div>
+    );
+  }
 }
-
 export default App;
