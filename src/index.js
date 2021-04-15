@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // ReactDOM.render(
@@ -23,11 +21,53 @@ import reportWebVitals from './reportWebVitals';
 // }
 // setInterval(tick, 1000);
 
-// //////////////////////////////////////////  COMPONENTS AND PROPS
-function ShowSomeThing(props) {
-  props.name = 'Ty';
-  return <h1>{props.name}</h1>;
+// // //////////////////////////////////////////  COMPONENTS AND PROPS
+// function ShowSomeThing(props) {
+//   props.name = 'Ty';
+//   return <h1>{props.name}</h1>;
+// }
+// ReactDOM.render(<ShowSomeThing name='Minh' />, document.getElementById('root'));
+
+// // //////////////////////////////////////////  STATE AND LIFECYCLE
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: new Date() };
+  }
+  render() {
+    return (
+      <div>
+        <h1>Clock : {this.state.date.toLocaleTimeString()}</h1>
+      </div>
+    );
+  }
+  tick() {
+    this.setState({ date: new Date() });
+  }
+  componentDidMount() {
+    this.timeID = setInterval(() => {
+      this.tick();
+    }, 1000);
+    console.log(this.timeID);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timeID);
+    console.log('reach it');
+  }
 }
-ReactDOM.render(<ShowSomeThing name='Minh' />, document.getElementById('root'));
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Clock />
+        <Clock />
+        <Clock />
+      </div>
+    );
+  }
+}
+ReactDOM.render(<App />, document.getElementById('root'));
+
 
 reportWebVitals();
