@@ -28,46 +28,75 @@ import reportWebVitals from './reportWebVitals';
 // }
 // ReactDOM.render(<ShowSomeThing name='Minh' />, document.getElementById('root'));
 
-// // //////////////////////////////////////////  STATE AND LIFECYCLE
-class Clock extends React.Component {
+// // // //////////////////////////////////////////  STATE AND LIFECYCLE
+// class Clock extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { date: new Date() };
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <h1>Clock : {this.state.date.toLocaleTimeString()}</h1>
+//       </div>
+//     );
+//   }
+//   tick() {
+//     this.setState({ date: new Date() });
+//   }
+//   componentDidMount() {
+//     this.timeID = setInterval(() => {
+//       this.tick();
+//     }, 1000);
+//     console.log(this.timeID);
+//   }
+
+//   componentWillUnmount() {
+//     clearInterval(this.timeID);
+//     console.log('reach it');
+//   }
+// }
+// class App extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <Clock />
+//         <Clock />
+//         <Clock />
+//       </div>
+//     );
+//   }
+// }
+// ReactDOM.render(<App />, document.getElementById('root'));
+
+// // // ////////////////////////////////////////// HANDLING EVENTS
+function ActionLink() {
+  function handler(e) {
+    e.preventDefault();
+    console.log(e);
+    console.log('Clicked');
+  }
+  return (
+    <a href='/meantea' onClick={handler}>
+      Clicker
+    </a>
+  );
+}
+
+class Toggle extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { date: new Date() };
+    this.state = { toggle: false };
   }
+  handler = () => {
+    this.setState({ toggle: !this.state.toggle });
+  };
   render() {
     return (
-      <div>
-        <h1>Clock : {this.state.date.toLocaleTimeString()}</h1>
-      </div>
-    );
-  }
-  tick() {
-    this.setState({ date: new Date() });
-  }
-  componentDidMount() {
-    this.timeID = setInterval(() => {
-      this.tick();
-    }, 1000);
-    console.log(this.timeID);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timeID);
-    console.log('reach it');
-  }
-}
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Clock />
-        <Clock />
-        <Clock />
-      </div>
+      <button onClick={this.handler}>{this.state.toggle ? 'ON' : 'OFF'}</button>
     );
   }
 }
-ReactDOM.render(<App />, document.getElementById('root'));
-
+ReactDOM.render(<Toggle />, document.getElementById('root'));
 
 reportWebVitals();
