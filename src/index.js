@@ -69,34 +69,66 @@ import reportWebVitals from './reportWebVitals';
 // }
 // ReactDOM.render(<App />, document.getElementById('root'));
 
-// // // ////////////////////////////////////////// HANDLING EVENTS
-function ActionLink() {
-  function handler(e) {
-    e.preventDefault();
-    console.log(e);
-    console.log('Clicked');
+// // // // ////////////////////////////////////////// HANDLING EVENTS
+// function ActionLink() {
+//   function handler(e) {
+//     e.preventDefault();
+//     console.log(e);
+//     console.log('Clicked');
+//   }
+//   return (
+//     <a href='/meantea' onClick={handler}>
+//       Clicker
+//     </a>
+//   );
+// }
+
+// class Toggle extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { toggle: false };
+//   }
+//   handler = () => {
+//     this.setState({ toggle: !this.state.toggle });
+//   };
+//   render() {
+//     return (
+//       <button onClick={this.handler}>{this.state.toggle ? 'ON' : 'OFF'}</button>
+//     );
+//   }
+// }
+// ReactDOM.render(<Toggle />, document.getElementById('root'));
+
+////////////////////////////////////////// CONDITIONAL RENDERING
+
+class Guest extends React.Component {
+  render() {
+    return <h1>Please Sign in</h1>;
   }
-  return (
-    <a href='/meantea' onClick={handler}>
-      Clicker
-    </a>
-  );
 }
 
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { toggle: false };
-  }
-  handler = () => {
-    this.setState({ toggle: !this.state.toggle });
-  };
+class User extends React.Component {
   render() {
     return (
-      <button onClick={this.handler}>{this.state.toggle ? 'ON' : 'OFF'}</button>
+      <div>
+        <h1>Hi there, Welcome back</h1>
+      </div>
     );
   }
 }
-ReactDOM.render(<Toggle />, document.getElementById('root'));
+
+class Greeting extends React.Component {
+  render() {
+    if (this.props.isLoggedIn) {
+      return <User />;
+    }
+    return <Guest />;
+  }
+}
+
+ReactDOM.render(
+  <Greeting isLoggedIn={false} />,
+  document.getElementById('root')
+);
 
 reportWebVitals();
