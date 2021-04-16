@@ -99,35 +99,56 @@ import reportWebVitals from './reportWebVitals';
 // }
 // ReactDOM.render(<Toggle />, document.getElementById('root'));
 
-////////////////////////////////////////// CONDITIONAL RENDERING
+// ////////////////////////////////////////// CONDITIONAL RENDERING
 
-class Guest extends React.Component {
-  render() {
-    return <h1>Please Sign in</h1>;
-  }
-}
+// class Guest extends React.Component {
+//   render() {
+//     return <h1>Please Sign in</h1>;
+//   }
+// }
 
-class User extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Hi there, Welcome back</h1>
-      </div>
-    );
-  }
-}
+// class User extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <h1>Hi there, Welcome back</h1>
+//       </div>
+//     );
+//   }
+// }
 
-class Greeting extends React.Component {
-  render() {
-    if (this.props.isLoggedIn) {
-      return <User />;
-    }
-    return <Guest />;
-  }
-}
+// class Greeting extends React.Component {
+//   render() {
+//     if (this.props.isLoggedIn) {
+//       return <User />;
+//     }
+//     return <Guest />;
+//   }
+// }
+
+// ReactDOM.render(
+//   <Greeting isLoggedIn={false} />,
+//   document.getElementById('root')
+// );
+
+////////////////////////////////////////// LISTS and KEYS
+
+const NumberLists = (props) => {
+  const numbers = props.numbers;
+  const lists = numbers.map((number) => (
+    <List key={number.toString()} number={number} />
+  ));
+  return <ul>{lists}</ul>;
+};
+
+const List = (props) => {
+  return <li>{props.number}</li>;
+};
+
+const numbers = [1, 2, 3, 4, 5];
 
 ReactDOM.render(
-  <Greeting isLoggedIn={false} />,
+  <NumberLists numbers={numbers} />,
   document.getElementById('root')
 );
 
