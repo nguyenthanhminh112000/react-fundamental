@@ -131,25 +131,114 @@ import reportWebVitals from './reportWebVitals';
 //   document.getElementById('root')
 // );
 
-////////////////////////////////////////// LISTS and KEYS
+// ////////////////////////////////////////// LISTS and KEYS
 
-const NumberLists = (props) => {
-  const numbers = props.numbers;
-  const lists = numbers.map((number) => (
-    <List key={number.toString()} number={number} />
-  ));
-  return <ul>{lists}</ul>;
-};
+// const NumberLists = (props) => {
+//   const numbers = props.numbers;
+//   const lists = numbers.map((number) => (
+//     <List key={number.toString()} number={number} />
+//   ));
+//   return <ul>{lists}</ul>;
+// };
 
-const List = (props) => {
-  return <li>{props.number}</li>;
-};
+// const List = (props) => {
+//   return <li>{props.number}</li>;
+// };
 
-const numbers = [1, 2, 3, 4, 5];
+// const numbers = [1, 2, 3, 4, 5];
 
-ReactDOM.render(
-  <NumberLists numbers={numbers} />,
-  document.getElementById('root')
-);
+// ReactDOM.render(
+//   <NumberLists numbers={numbers} />,
+//   document.getElementById('root')
+// );
+
+////////////////////////////////////////// FORMS
+
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: 'Name' };
+  }
+
+  onChangeHandler = (e) => {
+    this.setState({ value: e.target.value });
+  };
+  onSubmitHandler = (e) => {
+    console.log(`This is the new state ${this.state.value}`);
+    e.preventDefault();
+  };
+
+  render() {
+    // return (
+    //   <form onSubmit={this.onSubmitHandler}>
+    //     <label>
+    //       Name:
+    //       <input
+    //         type='text'
+    //         value={this.state.value}
+    //         onChange={this.onChangeHandler}
+    //       ></input>
+    //     </label>
+    //     <input type='submit' value='Submit'></input>
+    //   </form>
+    // );
+    return (
+      <select>
+        <option value='grapefruit'>Grapefruit</option>
+        <option value='lime'>Lime</option>
+        <option selected value='coconut'>
+          Coconut
+        </option>
+        <option value='mango'>Mango</option>
+      </select>
+    );
+  }
+}
+
+class FlavorForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: 'coconut' };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert('Your favorite flavor is: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Pick your favorite flavor:
+          <select
+            multiple={true}
+            value={['mango', 'coconut']}
+            onChange={this.handleChange}
+          >
+            <option value='grapefruit'>Grapefruit</option>
+            <option value='lime'>Lime</option>
+            <option value='coconut'>Coconut</option>
+            <option value='mango'>Mango</option>
+          </select>
+        </label>
+        <input type='submit' value='Submit' />
+      </form>
+    );
+  }
+}
+// ReactDOM.render(<FlavorForm />, document.getElementById('root'));
+ReactDOM.render(<input value='hi' />, document.getElementById('root'));
+
+setTimeout(function () {
+  ReactDOM.render(<input value={null} />, document.getElementById('root'));
+}, 5000);
 
 reportWebVitals();
