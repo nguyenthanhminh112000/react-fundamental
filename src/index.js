@@ -152,93 +152,179 @@ import reportWebVitals from './reportWebVitals';
 //   document.getElementById('root')
 // );
 
-////////////////////////////////////////// FORMS
+// ////////////////////////////////////////// FORMS
+// class NameForm extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { value: 'Name' };
+//   }
 
-class NameForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: 'Name' };
+//   onChangeHandler = (e) => {
+//     this.setState({ value: e.target.value });
+//   };
+//   onSubmitHandler = (e) => {
+//     console.log(`This is the new state ${this.state.value}`);
+//     e.preventDefault();
+//   };
+
+//   render() {
+//     // return (
+//     //   <form onSubmit={this.onSubmitHandler}>
+//     //     <label>
+//     //       Name:
+//     //       <input
+//     //         type='text'
+//     //         value={this.state.value}
+//     //         onChange={this.onChangeHandler}
+//     //       ></input>
+//     //     </label>
+//     //     <input type='submit' value='Submit'></input>
+//     //   </form>
+//     // );
+//     return (
+//       <select>
+//         <option value='grapefruit'>Grapefruit</option>
+//         <option value='lime'>Lime</option>
+//         <option selected value='coconut'>
+//           Coconut
+//         </option>
+//         <option value='mango'>Mango</option>
+//       </select>
+//     );
+//   }
+// }
+
+// class FlavorForm extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { value: 'coconut' };
+
+//     this.handleChange = this.handleChange.bind(this);
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//   }
+
+//   handleChange(event) {
+//     this.setState({ value: event.target.value });
+//   }
+
+//   handleSubmit(event) {
+//     alert('Your favorite flavor is: ' + this.state.value);
+//     event.preventDefault();
+//   }
+
+//   render() {
+//     return (
+//       <form onSubmit={this.handleSubmit}>
+//         <label>
+//           Pick your favorite flavor:
+//           <select
+//             multiple={true}
+//             value={['mango', 'coconut']}
+//             onChange={this.handleChange}
+//           >
+//             <option value='grapefruit'>Grapefruit</option>
+//             <option value='lime'>Lime</option>
+//             <option value='coconut'>Coconut</option>
+//             <option value='mango'>Mango</option>
+//           </select>
+//         </label>
+//         <input type='submit' value='Submit' />
+//       </form>
+//     );
+//   }
+// }
+// // ReactDOM.render(<FlavorForm />, document.getElementById('root'));
+// ReactDOM.render(<input value='hi' />, document.getElementById('root'));
+
+// setTimeout(function () {
+//   ReactDOM.render(<input value={null} />, document.getElementById('root'));
+// }, 5000);
+
+// ////////////////////////////////////////// LIFTING STATE UP
+
+const scaleNames = {
+  c: 'Celsius',
+  f: 'Fahrenheit',
+};
+
+function toCelsius(fahrenheit) {
+  return ((fahrenheit - 32) * 5) / 9;
+}
+
+function toFahrenheit(celsius) {
+  return (celsius * 9) / 5 + 32;
+}
+
+const tryConvert = (temperature, convert) => {
+  const input = parseFloat(temperature);
+  if (Number.isNaN(input)) {
+    return '';
   }
+  const output = convert(input);
+  const rounded = Math.round(output * 1000) / 1000;
+  return rounded.toString();
+};
 
-  onChangeHandler = (e) => {
-    this.setState({ value: e.target.value });
-  };
-  onSubmitHandler = (e) => {
-    console.log(`This is the new state ${this.state.value}`);
-    e.preventDefault();
-  };
-
+class BoilingWater extends React.Component {
   render() {
-    // return (
-    //   <form onSubmit={this.onSubmitHandler}>
-    //     <label>
-    //       Name:
-    //       <input
-    //         type='text'
-    //         value={this.state.value}
-    //         onChange={this.onChangeHandler}
-    //       ></input>
-    //     </label>
-    //     <input type='submit' value='Submit'></input>
-    //   </form>
-    // );
     return (
-      <select>
-        <option value='grapefruit'>Grapefruit</option>
-        <option value='lime'>Lime</option>
-        <option selected value='coconut'>
-          Coconut
-        </option>
-        <option value='mango'>Mango</option>
-      </select>
+      <p>
+        {this.props.celsius >= 100 ? 'Water would boil' : 'Water wouldnt boil'}
+      </p>
     );
   }
 }
 
-class FlavorForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: 'coconut' };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
-
-  handleSubmit(event) {
-    alert('Your favorite flavor is: ' + this.state.value);
-    event.preventDefault();
-  }
-
+class TemperatureInput extends React.Component {
+  handleChange = (e) => {
+    this.props.handleTemperatureChange(e.target.value);
+  };
   render() {
+    const temperature = this.props.temperature;
+    const scale = this.props.scale;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Pick your favorite flavor:
-          <select
-            multiple={true}
-            value={['mango', 'coconut']}
-            onChange={this.handleChange}
-          >
-            <option value='grapefruit'>Grapefruit</option>
-            <option value='lime'>Lime</option>
-            <option value='coconut'>Coconut</option>
-            <option value='mango'>Mango</option>
-          </select>
-        </label>
-        <input type='submit' value='Submit' />
-      </form>
+      <fieldset>
+        <legend>Enter temperature in {scaleNames[scale]}:</legend>
+        <input value={temperature} onChange={this.handleChange} />
+      </fieldset>
     );
   }
 }
-// ReactDOM.render(<FlavorForm />, document.getElementById('root'));
-ReactDOM.render(<input value='hi' />, document.getElementById('root'));
 
-setTimeout(function () {
-  ReactDOM.render(<input value={null} />, document.getElementById('root'));
-}, 5000);
-
+class Calculator extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { temperature: '', scale: 'c' };
+  }
+  handleCelsiusChange = (temperature) => {
+    this.setState({ temperature: temperature, scale: 'c' });
+  };
+  handleFahrenheitChange = (temperature) => {
+    this.setState({ temperature: temperature, scale: 'f' });
+  };
+  render() {
+    const temperature = this.state.temperature;
+    const scale = this.state.scale;
+    const celsius =
+      scale === 'f' ? tryConvert(temperature, toCelsius) : temperature;
+    const fahrenheit =
+      scale === 'c' ? tryConvert(temperature, toFahrenheit) : temperature;
+    return (
+      <div>
+        <TemperatureInput
+          temperature={celsius}
+          scale='c'
+          handleTemperatureChange={this.handleCelsiusChange}
+        />
+        <TemperatureInput
+          temperature={fahrenheit}
+          scale='f'
+          handleTemperatureChange={this.handleFahrenheitChange}
+        />
+        <BoilingWater celsius={parseFloat(celsius)} />
+      </div>
+    );
+  }
+}
+ReactDOM.render(<Calculator />, document.getElementById('root'));
 reportWebVitals();
