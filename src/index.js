@@ -241,90 +241,111 @@ import reportWebVitals from './reportWebVitals';
 // }, 5000);
 
 // ////////////////////////////////////////// LIFTING STATE UP
+// const scaleNames = {
+//   c: 'Celsius',
+//   f: 'Fahrenheit',
+// };
 
-const scaleNames = {
-  c: 'Celsius',
-  f: 'Fahrenheit',
-};
+// function toCelsius(fahrenheit) {
+//   return ((fahrenheit - 32) * 5) / 9;
+// }
 
-function toCelsius(fahrenheit) {
-  return ((fahrenheit - 32) * 5) / 9;
-}
+// function toFahrenheit(celsius) {
+//   return (celsius * 9) / 5 + 32;
+// }
 
-function toFahrenheit(celsius) {
-  return (celsius * 9) / 5 + 32;
-}
+// const tryConvert = (temperature, convert) => {
+//   const input = parseFloat(temperature);
+//   if (Number.isNaN(input)) {
+//     return '';
+//   }
+//   const output = convert(input);
+//   const rounded = Math.round(output * 1000) / 1000;
+//   return rounded.toString();
+// };
 
-const tryConvert = (temperature, convert) => {
-  const input = parseFloat(temperature);
-  if (Number.isNaN(input)) {
-    return '';
+// class BoilingWater extends React.Component {
+//   render() {
+//     return (
+//       <p>
+//         {this.props.celsius >= 100 ? 'Water would boil' : 'Water wouldnt boil'}
+//       </p>
+//     );
+//   }
+// }
+
+// class TemperatureInput extends React.Component {
+//   handleChange = (e) => {
+//     this.props.handleTemperatureChange(e.target.value);
+//   };
+//   render() {
+//     const temperature = this.props.temperature;
+//     const scale = this.props.scale;
+//     return (
+//       <fieldset>
+//         <legend>Enter temperature in {scaleNames[scale]}:</legend>
+//         <input value={temperature} onChange={this.handleChange} />
+//       </fieldset>
+//     );
+//   }
+// }
+
+// class Calculator extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { temperature: '', scale: 'c' };
+//   }
+//   handleCelsiusChange = (temperature) => {
+//     this.setState({ temperature: temperature, scale: 'c' });
+//   };
+//   handleFahrenheitChange = (temperature) => {
+//     this.setState({ temperature: temperature, scale: 'f' });
+//   };
+//   render() {
+//     const temperature = this.state.temperature;
+//     const scale = this.state.scale;
+//     const celsius =
+//       scale === 'f' ? tryConvert(temperature, toCelsius) : temperature;
+//     const fahrenheit =
+//       scale === 'c' ? tryConvert(temperature, toFahrenheit) : temperature;
+//     return (
+//       <div>
+//         <TemperatureInput
+//           temperature={celsius}
+//           scale='c'
+//           handleTemperatureChange={this.handleCelsiusChange}
+//         />
+//         <TemperatureInput
+//           temperature={fahrenheit}
+//           scale='f'
+//           handleTemperatureChange={this.handleFahrenheitChange}
+//         />
+//         <BoilingWater celsius={parseFloat(celsius)} />
+//       </div>
+//     );
+//   }
+// }
+// ReactDOM.render(<Calculator />, document.getElementById('root'));
+
+
+////////////////////////////////////////// COMPOSITION AND INHERITANCE
+class ParentComponent extends React.Component {
+  render() {
+    return <div>{this.props.children}</div>;
   }
-  const output = convert(input);
-  const rounded = Math.round(output * 1000) / 1000;
-  return rounded.toString();
-};
+}
 
-class BoilingWater extends React.Component {
+class App extends React.Component {
   render() {
     return (
-      <p>
-        {this.props.celsius >= 100 ? 'Water would boil' : 'Water wouldnt boil'}
-      </p>
+      <ParentComponent>
+        Hello world. My name is Nguyen Thanh Minh. I'm 21 current self-taught
+        developer. Nice to meet you
+      </ParentComponent>
     );
   }
 }
 
-class TemperatureInput extends React.Component {
-  handleChange = (e) => {
-    this.props.handleTemperatureChange(e.target.value);
-  };
-  render() {
-    const temperature = this.props.temperature;
-    const scale = this.props.scale;
-    return (
-      <fieldset>
-        <legend>Enter temperature in {scaleNames[scale]}:</legend>
-        <input value={temperature} onChange={this.handleChange} />
-      </fieldset>
-    );
-  }
-}
+ReactDOM.render(<App />, document.getElementById('root'));
 
-class Calculator extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { temperature: '', scale: 'c' };
-  }
-  handleCelsiusChange = (temperature) => {
-    this.setState({ temperature: temperature, scale: 'c' });
-  };
-  handleFahrenheitChange = (temperature) => {
-    this.setState({ temperature: temperature, scale: 'f' });
-  };
-  render() {
-    const temperature = this.state.temperature;
-    const scale = this.state.scale;
-    const celsius =
-      scale === 'f' ? tryConvert(temperature, toCelsius) : temperature;
-    const fahrenheit =
-      scale === 'c' ? tryConvert(temperature, toFahrenheit) : temperature;
-    return (
-      <div>
-        <TemperatureInput
-          temperature={celsius}
-          scale='c'
-          handleTemperatureChange={this.handleCelsiusChange}
-        />
-        <TemperatureInput
-          temperature={fahrenheit}
-          scale='f'
-          handleTemperatureChange={this.handleFahrenheitChange}
-        />
-        <BoilingWater celsius={parseFloat(celsius)} />
-      </div>
-    );
-  }
-}
-ReactDOM.render(<Calculator />, document.getElementById('root'));
 reportWebVitals();
