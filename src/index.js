@@ -539,29 +539,45 @@ import reportWebVitals from './reportWebVitals';
 // };
 // ReactDOM.render(<Count />, document.getElementById('root'));
 
-// ////////////////////////////////////////// EFFECT HOOK
-const App = () => {
-  const [count, setCount] = useState(0);
-  const [count2, setCount2] = useState(0);
+// // ////////////////////////////////////////// EFFECT HOOK
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   const [count2, setCount2] = useState(0);
+//   useEffect(() => {
+//     document.title = `${count} times`;
+//   }, [count]);
+
+//   const handleChange = () => {
+//     setCount(count + 1);
+//   };
+//   const handleChange2 = () => {
+//     setCount2(count2 + 1);
+//   };
+
+//   return (
+//     <div>
+//       <p>You clicked this {count} times</p>
+//       <p>You clicked this {count2} times</p>
+//       <button onClick={handleChange}>Click</button>
+//       <button onClick={handleChange2}>Click2</button>
+//     </div>
+//   );
+// };
+// ReactDOM.render(<App />, document.getElementById('root'));
+
+////////////////////////////////////////// Rules of HOOKS
+
+const App = (props) => {
+  const [name, setName] = useState('Minh');
   useEffect(() => {
-    document.title = `${count} times`;
-  }, [count]);
+    localStorage.setItem('formData', name);
+  });
 
-  const handleChange = () => {
-    setCount(count + 1);
-  };
-  const handleChange2 = () => {
-    setCount2(count2 + 1);
-  };
-
-  return (
-    <div>
-      <p>You clicked this {count} times</p>
-      <p>You clicked this {count2} times</p>
-      <button onClick={handleChange}>Click</button>
-      <button onClick={handleChange2}>Click2</button>
-    </div>
-  );
+  const [surname, setSurname] = useState('Nguyen');
+  useEffect(() => {
+    document.title = `${name} + ${surname}`;
+  });
+  return <div></div>;
 };
 ReactDOM.render(<App />, document.getElementById('root'));
 reportWebVitals();
