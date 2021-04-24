@@ -518,24 +518,50 @@ import reportWebVitals from './reportWebVitals';
 //   document.getElementById('root')
 // );
 
-////////////////////////////////////////// HOOKS at a Glance
-const Count = () => {
+// ////////////////////////////////////////// HOOKS at a Glance
+// const Count = () => {
+//   const [count, setCount] = useState(0);
+//   useEffect(() => {
+//     document.title = `You clicked ${count} times`;
+//   });
+//   return (
+//     <div>
+//       This was clicked {count} times
+//       <button
+//         onClick={() => {
+//           setCount(count + 1);
+//         }}
+//       >
+//         Click me
+//       </button>
+//     </div>
+//   );
+// };
+// ReactDOM.render(<Count />, document.getElementById('root'));
+
+// ////////////////////////////////////////// EFFECT HOOK
+const App = () => {
   const [count, setCount] = useState(0);
+  const [count2, setCount2] = useState(0);
   useEffect(() => {
-    document.title = `You clicked ${count} times`;
-  });
+    document.title = `${count} times`;
+  }, [count]);
+
+  const handleChange = () => {
+    setCount(count + 1);
+  };
+  const handleChange2 = () => {
+    setCount2(count2 + 1);
+  };
+
   return (
     <div>
-      This was clicked {count} times
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
-        Click me
-      </button>
+      <p>You clicked this {count} times</p>
+      <p>You clicked this {count2} times</p>
+      <button onClick={handleChange}>Click</button>
+      <button onClick={handleChange2}>Click2</button>
     </div>
   );
 };
-ReactDOM.render(<Count />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 reportWebVitals();
